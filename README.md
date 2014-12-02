@@ -16,5 +16,3 @@ Shortstack shines when used as a rendering engine for content that may live in y
 1. [TERMS](TERMS.md)
 2. [LICENSE](LICENSE)
 3. [CFPB Source Code Policy](https://github.com/cfpb/source-code-policy/)
-
-
