@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cfpb/shortstack.svg)](https://travis-ci.org/cfpb/shortstack)
+
 # Shortstack
 
 Shortstack will be a web application that does a very simple thing: render [Jinja2](http://jinja.pocoo.org/docs/dev/) templates from an on-disk project
