@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Moved sphinx stuff into /docs, did some setup work for tox
 * Creating initial project structure
 * Deleted swp file
 * initial commit
