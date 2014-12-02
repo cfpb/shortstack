@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Added configuration system, with tests
 * Update README.md
 * Update README.md
 * renaming travis.yaml to travis.yml
