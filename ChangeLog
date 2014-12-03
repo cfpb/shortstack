@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Removed silly placeholder test
 * Added configuration system, with tests
 * Update README.md
 * Update README.md
