@@ -51,6 +51,32 @@ You should then be able to open your web browser to http://localhost:7000/ and v
 
 The page you're looking at has been rendered through Jinja2. You may have noticed that you were redirected to /owning-a-home/. This "site" was actually built to be deployed at that path on a server, so we passed that --url argument so that links keep working.
 
+## Run the tests
+
+We use [tox](https://tox.readthedocs.org/en/latest/) test against Python versions 2.6,2.7,3.3, and 3.4
+
+```
+cd /path/to/shortstack
+pip install tox
+tox
+```
+
+If you are missing any of those Python versions, tox will complain. You can limit tox to testing a particualr python, like so:
+
+```
+tox -e py27,py34
+```
+
+If you just want to see the coverage report, or pylint output:
+
+```
+tox -e coverage
+```
+or
+```
+tox -e pylint
+```
+
 ## Open source licensing info
 1. [TERMS](TERMS.md)
 2. [LICENSE](LICENSE)
