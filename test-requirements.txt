@@ -2,3 +2,4 @@
 coverage
 nose
 pylint
+unittest2

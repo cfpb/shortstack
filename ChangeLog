@@ -1,6 +1,9 @@
 CHANGES
 =======
 
+* Update README.md
+* Update README.md
+* Test coverage to 100%
 * Porting sheer code over to ss, extending tests, improving quality
 * I am the antipattern
 * Removed silly placeholder test
