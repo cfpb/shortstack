@@ -48,12 +48,12 @@ def run_cli():
             '--url',
             '-u',
             default=URL_ROOT,
-            help="ROOT URL for the files in this project")
+            help="url root for the files in this project")
 
     args = parser.parse_args()
 
     config = dict(debug=args.debug,
                   location=os.path.join(os.getcwd(), args.location),
-                  root_url=args.url
+                  url_root=args.url
                   )
     args.func(args, config)

@@ -41,3 +41,26 @@ class TestWSGI(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertIn('Location', response.headers)
         self.assertEqual(response.headers['Location'], "http://localhost/foo/")
+
+
+
+class TestWSGIWithAltURL(unittest.TestCase):
+
+    def setUp(self):
+        module_path = os.path.dirname(os.path.abspath(__file__))
+        self.test_project = os.path.join(module_path, 'testproject')
+
+        self.app = shortstack.wsgi.Shortstack('shortstack.test', instance_path=self.test_project,
+                                              url_root='/about-us/')
+        self.client = Client(self.app, BaseResponse)
+
+    def test_redirect_to_url_root(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 302)
+        self.assertIn('Location', response.headers)
+        self.assertEqual(response.headers['Location'], "http://localhost/about-us/")
+
+
+    def test_not_redirecting_for_url_in_root(self):
+        response = self.client.get('/about-us/index.html')
+        self.assertEqual(response.status_code, 200)

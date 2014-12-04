@@ -1,3 +1,5 @@
+import os.path
+
 import flask
 from jinja2.loaders import FileSystemLoader
 from werkzeug.routing import RequestRedirect
@@ -9,6 +11,14 @@ from .utility import build_search_path
 class Shortstack(flask.Flask):
 
     def __init__(self, *args, **kwargs):
+        self.url_root = kwargs.pop('url_root', '/')
+        assert self.url_root.startswith('/'), "url_root must start with slash"
+        assert self.url_root.endswith('/'), "url_root must end with slash"
+
+        # This helps us take the url_root into account
+        # when translating URL paths to the filesystem
+        self.trim_from_paths = len(self.url_root) - 1
+
         super(Shortstack, self).__init__(*args, **kwargs)
 
         template_search_path = [self.join_path('_layouts'),
@@ -25,25 +35,23 @@ class Shortstack(flask.Flask):
             relative_path = relative_path[1:]
         return flask.safe_join(self.instance_path, relative_path)
 
-    def filesystem_path_for_request(self):
-        raw_path = flask.request.path
-        if raw_path.endswith('/'):
-            raw_path += ('index.html')
+    def trim_path(self, path):
+        return path[self.trim_from_paths:]
 
-        translated_path = self.join_path(raw_path)
+    def filesystem_path_for_request(self):
+        trimmed = self.trim_path(flask.request.path)
+
+        if trimmed.endswith('/'):
+            trimmed += ('index.html')
+
+        translated_path = self.join_path(trimmed)
         return translated_path
 
     def build_search_path(self, *args, **kwargs):
         return build_search_path(self.instance_path, *args, **kwargs)
 
     def dispatch_request(self):
-        try:
-            flask_response = super(Shortstack, self).dispatch_request()
-            return flask_response
-
-        except RequestRedirect:
-
-            filesystem_path = self.filesystem_path_for_request()
-            if os.path.isfile(filesystem_path):
-                return handle_request()
-            raise
+        if not flask.request.path.startswith(self.url_root):
+            redirect_to = self.url_root + flask.request.path[1:]
+            return flask.redirect(redirect_to)
+        super(Shortstack, self).dispatch_request()

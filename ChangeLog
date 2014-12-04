@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* Porting sheer code over to ss, extending tests, improving quality
 * I am the antipattern
 * Removed silly placeholder test
 * Added configuration system, with tests
