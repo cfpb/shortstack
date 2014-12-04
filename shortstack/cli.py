@@ -50,10 +50,13 @@ def run_cli():
             default=URL_ROOT,
             help="url root for the files in this project")
 
-    args = parser.parse_args()
+    arguments = parser.parse_args()
 
-    config = dict(debug=args.debug,
-                  location=os.path.join(os.getcwd(), args.location),
-                  url_root=args.url
-                  )
-    args.func(args, config)
+    if hasattr(arguments, 'func'):
+        config = dict(debug=arguments.debug,
+                      location=os.path.join(os.getcwd(), arguments.location),
+                      url_root=arguments.url
+                      )
+        arguments.func(arguments, config)
+    else:
+        parser.print_help()
