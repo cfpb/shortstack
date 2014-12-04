@@ -1,6 +1,16 @@
 CHANGES
 =======
 
+0.3
+---
+
+* Update tox.ini
+
+0.2
+---
+
+* fixed the cli tool to work in Python3, and moved some requitements around to avoid Python2.6-specific configs
+* Update .travis.yml
 * Update README.md
 * Update README.md
 * Test coverage to 100%

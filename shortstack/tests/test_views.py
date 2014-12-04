@@ -20,7 +20,7 @@ class TestView(unittest.TestCase):
         module_path = os.path.dirname(os.path.abspath(__file__))
         self.test_project = os.path.join(module_path, 'testproject')
 
-        self.app = shortstack.wsgi.Shortstack('shortstack.test', instance_path=self.test_project)
+        self.app = shortstack.wsgi.Shortstack('shortstack', instance_path=self.test_project)
 
     def test_static_file(self):
         with self.app.test_request_context('/style.css'):

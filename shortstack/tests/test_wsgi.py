@@ -18,7 +18,7 @@ class TestWSGI(unittest.TestCase):
         module_path = os.path.dirname(os.path.abspath(__file__))
         self.test_project = os.path.join(module_path, 'testproject')
 
-        self.app = shortstack.wsgi.Shortstack('shortstack.test', instance_path=self.test_project)
+        self.app = shortstack.wsgi.Shortstack('shortstack', instance_path=self.test_project)
         self.client = Client(self.app, BaseResponse)
 
     def test_render_through_app(self):
@@ -50,7 +50,7 @@ class TestWSGIWithAltURL(unittest.TestCase):
         module_path = os.path.dirname(os.path.abspath(__file__))
         self.test_project = os.path.join(module_path, 'testproject')
 
-        self.app = shortstack.wsgi.Shortstack('shortstack.test', instance_path=self.test_project,
+        self.app = shortstack.wsgi.Shortstack('shortstack', instance_path=self.test_project,
                                               url_root='/about-us/')
         self.client = Client(self.app, BaseResponse)
 
