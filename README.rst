@@ -1,5 +1,6 @@
-|Build Status|
-
+.. image:: https://travis-ci.org/cfpb/shortstack.svg?branch=master
+    :target: https://travis-ci.org/cfpb/shortstack
+    
 Shortstack
 ==========
 
