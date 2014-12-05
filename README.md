@@ -53,7 +53,7 @@ The page you're looking at has been rendered through Jinja2. You may have notice
 
 ## Run the tests
 
-We use [tox](https://tox.readthedocs.org/en/latest/) test against Python versions 2.6,2.7,3.3, and 3.4
+We use [tox](https://tox.readthedocs.org/en/latest/) to test against Python versions 2.6,2.7,3.3, and 3.4
 
 ```
 cd /path/to/shortstack
