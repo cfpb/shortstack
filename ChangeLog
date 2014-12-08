@@ -1,6 +1,7 @@
 CHANGES
 =======
 
+* update setup.cfg to point to README.rst
 * Update README.rst
 * converted README to ReStructured Text
 * Update README.md
