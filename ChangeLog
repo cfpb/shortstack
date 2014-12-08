@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+* Update README.rst
+* converted README to ReStructured Text
+* Update README.md
+* App name (first argument in Flask.__init__) needs
+
 0.3
 ---
 
