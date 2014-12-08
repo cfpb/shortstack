@@ -48,6 +48,9 @@ Other things on the to-do list
 Make it go
 ----------
 
+Serve a site
+~~~~~
+
 We're working on a simpler demo project, but in the meantime, give it a
 try with `Owning a Home <https://github.com/cfpb/owning-a-home>`__!
 
@@ -78,6 +81,8 @@ Then, start the local server with:
 You should then be able to open your web browser to
 http://localhost:7000/ and view the site!
 
+
+
 What just happened?
 ~~~~~~~~~~~~~~~~~~~
 
@@ -85,6 +90,19 @@ The page you're looking at has been rendered through Jinja2. You may
 have noticed that you were redirected to /owning-a-home/. This "site"
 was actually built to be deployed at that path on a server, so we passed
 that --url argument so that links keep working.
+
+Build a static site
+~~~~~~~~~~~~~~~~~~~
+
+Let's also build a static HTML version of that site. It's as easy as:
+
+::
+
+    cd /path/to/owning-a-home/dist/
+
+    shorts build --url /owning-a-home/
+
+The generated site is now in the _build directory. Look for yourself!
 
 Run the tests
 -------------
