@@ -1,11 +1,15 @@
-import os.path
+import fnmatch
+import itertools
 
 import flask
 from jinja2.loaders import FileSystemLoader
-from werkzeug.routing import RequestRedirect
 
 from .views import handle_request
+from .filesystem import relative_urls_from_filesystem, ignore_match
 from .utility import build_search_path
+
+
+DEFAULT_IGNORE = ['_layouts/*', '_settings/*']
 
 
 class Shortstack(flask.Flask):
@@ -26,9 +30,25 @@ class Shortstack(flask.Flask):
 
         self.jinja_loader = FileSystemLoader(template_search_path)
 
+        try:
+            with self.open_instance_resource('.ssignore') as ignorefile:
+                self.ignore_patterns = [l.strip() for l in ignorefile]
+        except IOError:
+            self.ignore_patterns = []
+
         @self.errorhandler(404)
         def _(e):
             return handle_request()
+
+    def should_ignore_path(self, path):
+        ignore_patterns = itertools.chain(DEFAULT_IGNORE, self.ignore_patterns)
+        stripped_path = path[self.trim_from_paths + 1:]
+        return ignore_match(ignore_patterns, stripped_path)
+
+    def filtered_urls_from_filesystem(self):
+        unfiltered = relative_urls_from_filesystem(
+            self.instance_path, self.url_root)
+        return (url for url in unfiltered if not self.should_ignore_path(url))
 
     def join_path(self, relative_path):
         if relative_path.startswith('/'):
