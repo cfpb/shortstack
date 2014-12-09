@@ -38,12 +38,6 @@ Shortstack will shine when used as a rendering engine for content that
 may live in your CMS, data files, microservices, search index, or all of
 the above.
 
-Other things on the to-do list
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--  Generate a static HTML version of a site
--  Flesh out the documentation with
-   `sphinx <https://pythonhosted.org/an_example_pypi_project/sphinx.html>`__
 
 Make it go
 ----------
@@ -102,7 +96,19 @@ Let's also build a static HTML version of that site. It's as easy as:
 
     shorts build --url /owning-a-home/
 
-The generated site is now in the _build directory. Look for yourself!
+The generated site is now in the _build directory, which you can serve with any
+other web server (like Apache or nginx). Let's try it with the simple web server
+that comes with Python.
+
+::
+
+cd /path/to/owning-a-home/dist/_build/
+
+# Python 2:
+python -m SimpleHTTPServer
+
+# Python3:
+python -m http.server 8000
 
 Run the tests
 -------------
