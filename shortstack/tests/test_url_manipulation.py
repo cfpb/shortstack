@@ -1,0 +1,1 @@
+from shortstack import url_manipulation
