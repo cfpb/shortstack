@@ -1,6 +1,6 @@
 import fnmatch
 
-DEFAULT_IGNORE_PATTERNS = ['/static/*']
+DEFAULT_NORELOCATE = ['/static/*']
 
 
 def path_in_patterns(patterns, path):
@@ -10,7 +10,7 @@ def path_in_patterns(patterns, path):
     return any(pattern_matches)
 
 
-def prepend_url(prepend, path, ignore_patterns=DEFAULT_IGNORE_PATTERNS):
+def prepend_url(prepend, path, ignore_patterns=DEFAULT_NORELOCATE):
     if path.startswith(prepend) or path_in_patterns(ignore_patterns, path):
         return path
     elif path == '/':
