@@ -9,11 +9,6 @@ import shortstack.wsgi
 from shortstack import filesystem
 
 
-class TestIgnoreSystem(unittest.TestCase):
-
-    def test_ignore_match(self):
-        patterns = ['_foo/*', '.git', 'blue/red']
-        self.assertTrue(filesystem.ignore_match(patterns, "_foo/bar.txt"))
 
 
 class TestURLGeneration(unittest.TestCase):

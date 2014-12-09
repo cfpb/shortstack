@@ -14,6 +14,9 @@ DEBUG = bool(os.environ.get('SS_DEBUG', False))
 
 
 def add_builder_subparser(subparsers):
+    """
+    Create the subparser for 'shorts build'
+    """
     builder_parser = subparsers.add_parser('build',
                                            help="build a statuc HTML"
                                                 "version of this"
@@ -27,7 +30,9 @@ def add_builder_subparser(subparsers):
 
 
 def add_server_subparser(subparsers):
-
+    """
+    Create the subparser for 'shorts serve'
+    """
     server_parser = subparsers.add_parser('serve',
                                           help="serve this site")
 
@@ -45,7 +50,9 @@ def add_server_subparser(subparsers):
 
 
 def apply_universal_arguments(subparser):
-
+    """
+    Add common arguments to all subparsers
+    """
     subparser.add_argument(
         '--debug',
         help="print debugging output to the console",
@@ -75,7 +82,7 @@ def run_cli():
     add_server_subparser(subparsers)
     add_builder_subparser(subparsers)
 
-    for name, sub in six.iteritems(subparsers.choices):
+    for _, sub in six.iteritems(subparsers.choices):
         apply_universal_arguments(sub)
 
     arguments = parser.parse_args()
@@ -83,8 +90,7 @@ def run_cli():
     if hasattr(arguments, 'func'):
         config = dict(debug=arguments.debug,
                       location=os.path.join(os.getcwd(), arguments.location),
-                      url_root=arguments.url
-                      )
+                      url_root=arguments.url)
         arguments.func(arguments, config)
     else:
         parser.print_help()
