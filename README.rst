@@ -135,7 +135,11 @@ If you just want to see the coverage report, or pylint output:
 
     tox -e coverage
 
-or ``tox -e pylint``
+
+::
+
+    tox -e pylint
+
 
 Open source licensing info
 --------------------------
