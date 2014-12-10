@@ -38,15 +38,12 @@ Shortstack will shine when used as a rendering engine for content that
 may live in your CMS, data files, microservices, search index, or all of
 the above.
 
-Other things on the to-do list
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--  Generate a static HTML version of a site
--  Flesh out the documentation with
-   `sphinx <https://pythonhosted.org/an_example_pypi_project/sphinx.html>`__
 
 Make it go
 ----------
+
+Serve a site
+~~~~~
 
 We're working on a simpler demo project, but in the meantime, give it a
 try with `Owning a Home <https://github.com/cfpb/owning-a-home>`__!
@@ -78,6 +75,8 @@ Then, start the local server with:
 You should then be able to open your web browser to
 http://localhost:7000/ and view the site!
 
+
+
 What just happened?
 ~~~~~~~~~~~~~~~~~~~
 
@@ -85,6 +84,31 @@ The page you're looking at has been rendered through Jinja2. You may
 have noticed that you were redirected to /owning-a-home/. This "site"
 was actually built to be deployed at that path on a server, so we passed
 that --url argument so that links keep working.
+
+Build a static site
+~~~~~~~~~~~~~~~~~~~
+
+Let's also build a static HTML version of that site. It's as easy as:
+
+::
+
+    cd /path/to/owning-a-home/dist/
+
+    shorts build --url /owning-a-home/
+
+The generated site is now in the _build directory, which you can serve with any
+other web server (like Apache or nginx). Let's try it with the simple web server
+that comes with Python.
+
+::
+
+cd /path/to/owning-a-home/dist/_build/
+
+# Python 2:
+python -m SimpleHTTPServer
+
+# Python3:
+python -m http.server 8000
 
 Run the tests
 -------------
@@ -111,7 +135,11 @@ If you just want to see the coverage report, or pylint output:
 
     tox -e coverage
 
-or ``tox -e pylint``
+
+::
+
+    tox -e pylint
+
 
 Open source licensing info
 --------------------------

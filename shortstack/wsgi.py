@@ -1,11 +1,15 @@
-import os.path
+import itertools
 
 import flask
 from jinja2.loaders import FileSystemLoader
-from werkzeug.routing import RequestRedirect
 
 from .views import handle_request
+from .filesystem import relative_urls_from_filesystem
+from .url_manipulation import path_in_patterns, prepend_url
 from .utility import build_search_path
+
+
+DEFAULT_IGNORE = ['_layouts/*', '_settings/*']
 
 
 class Shortstack(flask.Flask):
@@ -26,9 +30,25 @@ class Shortstack(flask.Flask):
 
         self.jinja_loader = FileSystemLoader(template_search_path)
 
+        try:
+            with self.open_instance_resource('.ssignore') as ignorefile:
+                self.ignore_patterns = [l.strip() for l in ignorefile]
+        except IOError:
+            self.ignore_patterns = []
+
         @self.errorhandler(404)
         def _(e):
             return handle_request()
+
+    def should_ignore_path(self, path):
+        ignore_patterns = itertools.chain(DEFAULT_IGNORE, self.ignore_patterns)
+        stripped_path = path[self.trim_from_paths + 1:]
+        return path_in_patterns(ignore_patterns, stripped_path)
+
+    def filtered_urls_from_filesystem(self):
+        unfiltered = relative_urls_from_filesystem(
+            self.instance_path, self.url_root)
+        return (url for url in unfiltered if not self.should_ignore_path(url))
 
     def join_path(self, relative_path):
         if relative_path.startswith('/'):
@@ -36,7 +56,10 @@ class Shortstack(flask.Flask):
         return flask.safe_join(self.instance_path, relative_path)
 
     def trim_path(self, path):
-        return path[self.trim_from_paths:]
+        if path.startswith(self.url_root):
+            return path[self.trim_from_paths:]
+        else:
+            return path
 
     def filesystem_path_for_request(self):
         trimmed = self.trim_path(flask.request.path)
@@ -51,7 +74,7 @@ class Shortstack(flask.Flask):
         return build_search_path(self.instance_path, *args, **kwargs)
 
     def dispatch_request(self):
-        if not flask.request.path.startswith(self.url_root):
-            redirect_to = self.url_root + flask.request.path[1:]
-            return flask.redirect(redirect_to)
+        prepared_url = prepend_url(self.url_root,flask.request.path)
+        if prepared_url != flask.request.path:
+            return flask.redirect(prepared_url)
         super(Shortstack, self).dispatch_request()
