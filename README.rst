@@ -123,7 +123,7 @@ Python versions 2.6,2.7,3.3, and 3.4
     tox
 
 If you are missing any of those Python versions, tox will complain. You
-can limit tox to testing a particualr python, like so:
+can limit tox to testing a particular python, like so:
 
 ::
 
