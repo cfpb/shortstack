@@ -4,6 +4,16 @@
 Shortstack
 ==========
 
+Current Status
+--------------
+
+Shortstack was an experiment to extract a more general-purpose tool from _Sheer.
+
+.. _Sheer: https://github.com/cfpb/sheer
+
+We've decided to go forward with Django, instead, and will most likely not be
+revisiting this project.
+
 Today
 -----
 
@@ -12,31 +22,6 @@ render `Jinja2 <http://jinja.pocoo.org/docs/dev/>`__ templates from an
 on-disk project folder that resembles a traditional website (so, the URL
 /foo/ will be served by the *template* foo/index.html). You might find
 it useful for prototypes and simple websites.
-
-What's next
------------
-
-We're working on an extension system (`planning
-wiki <https://github.com/cfpb/shortstack/wiki/Extensions>`__) that will
-make it easy to incorprate data and services from any source into a
-Shortstack site.
-
-Extensions will be able to:
-
--  add information to the template context, either globally on based on
-   URL patterns.
--  provide more complex rules for resolving URL's to templates (for
-   example, specifying that URL's like /blog/my\_post/ will use the
-   template at \_layouts/articles.html)
--  return a list of all URL's that the extension adds. (for generating
-   static sites)
--  Register
-   `filters <http://jinja.pocoo.org/docs/dev/api/#writing-filters>`__
-   and `tests <http://jinja.pocoo.org/docs/dev/api/#writing-tests>`__
-
-Shortstack will shine when used as a rendering engine for content that
-may live in your CMS, data files, microservices, search index, or all of
-the above.
 
 
 Make it go
